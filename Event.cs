@@ -68,14 +68,7 @@ class Event
     public Event(string title, DateTime date, int maxCapacity)
     {
         Title = title;
-        try
-        {
-            Date = date;
-        }
-        catch(Exception e)
-        {
-            Console.WriteLine(e.Message);
-        }
+        Date = date;
         MaxCapacity = maxCapacity;
         BookedSeats = 0;
     }

@@ -1,7 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-
-
+﻿using System.Runtime.CompilerServices;
 
 
 
@@ -32,10 +29,43 @@ while (!exit)
     {
         case 1:
             Console.Clear();
-            string nome = getUserString("Nome Evento: ");
-            DateTime data = Convert.ToDateTime(getUserString("Data evento: "));
+            string nome = "";
+            DateTime data = Convert.ToDateTime("01/01/0001");
+            do
+            {
+                try
+                {
+                    nome = getUserString("Nome Evento: ");
+                }
+                catch(Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
+            } while (nome == "");
+
+            do
+            {
+                try
+                {
+                    data = Convert.ToDateTime(getUserString("Data evento: "));
+                    if(data < DateTime.Now)
+                    {
+                        data = Convert.ToDateTime("01/01/0001");
+                        throw new Exception("La data non può essere precedente alla data odierna. Riprova");
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+
+            } while (data.ToString("d") == "01/01/0001");
+                       
             int posti = Convert.ToInt32(getUserString("Posti disponibili: "));
+
             Event newE = new Event(nome, data, posti);
+
             bool flag = true;
             while (flag)
             {

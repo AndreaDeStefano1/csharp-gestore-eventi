@@ -13,8 +13,8 @@ class Event
         set 
         { 
             if (value == "") 
-            { 
-                title = "Il titolo non può essere vuoto";
+            {
+                throw new Exception("Il titolo non può essere vuoto");
             }
             else
             {

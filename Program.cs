@@ -6,8 +6,7 @@
 
 static void PrintMenu()
 {
-    Console.WriteLine("(1) - Aggiungi Evento");
-    Console.WriteLine("(2) - Aggiungi programma di eventi");
+    Console.WriteLine("(1) - Aggiungi programma di eventi");
     Console.WriteLine("(3) - Esci");
 }
 
@@ -121,112 +120,98 @@ while (!exit)
         //    break;
         //#endregion
 
-        case 2:
+        case 1:
 
-            int n = Convert.ToInt32(getUserString("Quanti eventi vuoi aggiungere?"));
-            string programName = getUserString("Come si chiama il programma?");
+            int n = Convert.ToInt32(getUserString("\nQuanti eventi vuoi aggiungere?"));
+            string programName = getUserString("\nCome si chiama il programma?");
             ProgramEvent p = new ProgramEvent(programName);
+            bool repeat = false;
             for (int i = 0; i < n; i++)
             {
                 Console.Clear();
-                string nome = "";
-                DateTime data = Convert.ToDateTime("01/01/0001");
-                do
+                do 
                 {
+                    Console.WriteLine($"Inserisci il nome del {i + 1}° evento");
+                    string nome = getUserString("\nNome Evento: ");
+                    DateTime data = Convert.ToDateTime(getUserString("\nData evento: "));
+                    int posti = Convert.ToInt32(getUserString("\nPosti disponibili: "));
+
+
                     try
                     {
-                        nome = getUserString("Nome Evento: ");
+                        Event newE = new Event(nome, data, posti);
+
+                        p.AddEvent(newE); //aggiungo l evento alla lista
+
+                        #region AggiungiRimuoviPosti
+                        //bool flag = true;
+                        //while (flag)
+                        //{
+                        //    string choice2 = getUserString("Vuoi aggiungere posti prenotati(1)? O rimuoverli (2)? Oppure tornare al Menu(3) ");
+                        //    switch (choice2)
+                        //    {
+                        //        case "1":
+                        //            bool addError = false;
+                        //            do
+                        //            {
+                        //                try
+                        //                {
+                        //                    newE.BookSeatsPlus(Convert.ToInt32(getUserString("Quanti posti vuoi riservare?")));
+                        //                    addError = false;
+                        //                }
+                        //                catch (Exception e)
+                        //                {
+                        //                    Console.WriteLine(e.Message);
+                        //                    addError = true;
+
+                        //                }
+                        //            } while (addError);
+
+                        //            Console.WriteLine(newE.ToString());
+                        //            newE.PrintDisponibility();
+                        //            break;
+
+                        //        case "2":
+                        //            bool removeError = false;
+                        //            do
+                        //            {
+                        //                try
+                        //                {
+                        //                    newE.BookSeatsMinus(Convert.ToInt32(getUserString("Quanti posti vuoi disdire?")));
+                        //                    removeError = false;
+                        //                }
+                        //                catch (Exception e)
+                        //                {
+                        //                    Console.WriteLine(e.Message);
+                        //                    removeError = true;
+
+                        //                }
+                        //            } while (removeError);
+
+                        //            Console.WriteLine(newE.ToString());
+                        //            newE.PrintDisponibility();
+                        //            break;
+
+                        //        default:
+                        //            flag = false;
+                        //            break;
+                        //    }
+                        // } 
+                        #endregion 
                     }
-                    catch (Exception e)
+                    catch (Exception ex)
                     {
-                        Console.WriteLine(e.Message);
+                        Console.WriteLine(ex.Message);
+                        repeat = true;
                     }
-
-                } while (nome == "");
-
-                do
-                {
-                    try
-                    {
-                        data = Convert.ToDateTime(getUserString("Data evento: "));
-                        if (data < DateTime.Now)
-                        {
-                            data = Convert.ToDateTime("01/01/0001");
-                            throw new Exception("La data non può essere precedente alla data odierna. Riprova");
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine(e.Message);
-                    }
-
-                } while (data.ToString("d") == "01/01/0001");
-
-                int posti = Convert.ToInt32(getUserString("Posti disponibili: "));
-
-                Event newE = new Event(nome, data, posti);
-
-                p.AddEvent(newE); //aggiungo l evento alla lista
-
-                bool flag = true;
-                while (flag)
-                {
-                    string choice2 = getUserString("Vuoi aggiungere posti prenotati(1)? O rimuoverli (2)? Oppure tornare al Menu(3) ");
-                    switch (choice2)
-                    {
-                        case "1":
-                            bool addError = false;
-                            do
-                            {
-                                try
-                                {
-                                    newE.BookSeatsPlus(Convert.ToInt32(getUserString("Quanti posti vuoi riservare?")));
-                                    addError = false;
-                                }
-                                catch (Exception e)
-                                {
-                                    Console.WriteLine(e.Message);
-                                    addError = true;
-
-                                }
-                            } while (addError);
-
-                            Console.WriteLine(newE.ToString());
-                            newE.PrintDisponibility();
-                            break;
-
-                        case "2":
-                            bool removeError = false;
-                            do
-                            {
-                                try
-                                {
-                                    newE.BookSeatsMinus(Convert.ToInt32(getUserString("Quanti posti vuoi disdire?")));
-                                    removeError = false;
-                                }
-                                catch (Exception e)
-                                {
-                                    Console.WriteLine(e.Message);
-                                    removeError = true;
-
-                                }
-                            } while (removeError);
-
-                            Console.WriteLine(newE.ToString());
-                            newE.PrintDisponibility();
-                            break;
-
-                        default:
-                            flag = false;
-                            break;
-                    }
-                }
+                }while (repeat);
+              
             }
+            Console.Clear();
             Console.WriteLine($"\nIl numero di eventi presenti è {p.EventCount()}");
-            Console.WriteLine($"Gli eventi nel programma sono:\n{p.PrintProgram()}");
-            DateTime date = Convert.ToDateTime(getUserString("Inserisci una data per saperew che eventi ci saranno (gg/mm/yyyy)"));
+            Console.WriteLine($"\nGli eventi nel programma {p.PrintProgram()}");
+            DateTime date = Convert.ToDateTime(getUserString("\nInserisci una data per sapere che eventi ci saranno (gg/mm/yyyy)"));
             string formattedDate = date.ToString("d");
-            Console.WriteLine(formattedDate);
             List<Event> l = p.ListedEvents(formattedDate);
             Console.WriteLine($"Gli eventi nel programma sono:");
             ProgramEvent.PrintList(l);

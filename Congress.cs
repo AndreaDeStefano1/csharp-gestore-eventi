@@ -9,4 +9,14 @@ class Congress : Event
         Speaker = speaker;
         Price = price;
     }
+
+    public string FormattedPrice()
+    {
+        return Math.Round(Price, 2).ToString("0.00");
+    }
+    public override string ToString()
+    {
+        return base.ToString() + $" - {Speaker} - {FormattedPrice()}";
+    }
+
 }

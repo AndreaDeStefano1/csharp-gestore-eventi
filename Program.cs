@@ -207,6 +207,24 @@ while (!exit)
                 }while (repeat);
               
             }
+
+            Console.WriteLine("aggiungiamo una conferenza:");
+            Console.WriteLine($"Inserisci il nome della conferenza ");
+            string congressName = getUserString("\nNome Evento: ");
+            DateTime congressDate = Convert.ToDateTime(getUserString("\nData evento: "));
+            int congressSlots = Convert.ToInt32(getUserString("\nPosti disponibili: "));
+            string congressSpeaker = getUserString("Nome relatore: ");
+            double congressPrice = Convert.ToDouble(getUserString("Prezzo biglietto: "));
+            try
+            {
+                Congress newC = new Congress(congressName, congressDate, congressSlots, congressSpeaker, congressPrice);
+                p.AddEvent(newC);
+
+            }catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
             Console.Clear();
             Console.WriteLine($"\nIl numero di eventi presenti è {p.EventCount()}");
             Console.WriteLine($"\nGli eventi nel programma {p.PrintProgram()}");

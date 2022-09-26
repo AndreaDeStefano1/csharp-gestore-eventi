@@ -6,11 +6,8 @@
 
 static void PrintMenu()
 {
-    Console.WriteLine("(1)- Aggiungi Evento");
-    Console.WriteLine("()-");
-    Console.WriteLine("()-");
-    Console.WriteLine("()-");
-    Console.WriteLine("()-");
+    Console.WriteLine("(1) - Aggiungi Evento");
+    Console.WriteLine("(2) - Esci");
 }
 
 static string getUserString(string message)
@@ -27,6 +24,7 @@ while (!exit)
 
     switch (choice)
     {
+        #region AggiungiEvento
         case 1:
             Console.Clear();
             string nome = "";
@@ -37,7 +35,7 @@ while (!exit)
                 {
                     nome = getUserString("Nome Evento: ");
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
@@ -49,7 +47,7 @@ while (!exit)
                 try
                 {
                     data = Convert.ToDateTime(getUserString("Data evento: "));
-                    if(data < DateTime.Now)
+                    if (data < DateTime.Now)
                     {
                         data = Convert.ToDateTime("01/01/0001");
                         throw new Exception("La data non può essere precedente alla data odierna. Riprova");
@@ -61,7 +59,7 @@ while (!exit)
                 }
 
             } while (data.ToString("d") == "01/01/0001");
-                       
+
             int posti = Convert.ToInt32(getUserString("Posti disponibili: "));
 
             Event newE = new Event(nome, data, posti);
@@ -120,7 +118,9 @@ while (!exit)
                 }
             }
             break;
-            
+        #endregion
+
+
         default:
             exit = true;
             break;

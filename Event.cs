@@ -1,4 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Reflection;
+
 class Event
 {
     private string title;
@@ -51,7 +53,17 @@ class Event
             
         }
     }
-    public int BookedSeats { get;  }
+    public int BookedSeats { 
+        get => bookedSeats;
+        private set
+        {
+
+            
+                bookedSeats = value;
+            
+
+        }
+    }
 
     public Event(string title, DateTime date, int maxCapacity)
     {
@@ -68,7 +80,7 @@ class Event
         BookedSeats = 0;
     }
 
-    public void BookSeats(int n)
+    public void BookSeatsPlus(int n)
     {
         if (Date < DateTime.Now)
         {
@@ -77,31 +89,43 @@ class Event
 
         if ( n > MaxCapacity - BookedSeats )
         {
-            throw new Exception();
+            throw new Exception("Il numero di posti che vuoi prenotare è superiore a quello dei posti disponibili");
         }
         else
         {
-            this.bookedSeats += n;
+            BookedSeats += n;
         }
     }
 
-    public void CancelBooking( int n )
+    public void BookSeatsMinus( int n )
     {
         if (Date < DateTime.Now)
         {
             throw new Exception("L'evento è già passato");
         }
 
-        if (n < BookedSeats)
+        if (n > BookedSeats)
         {
             throw new Exception("Il numero di posti che vuoi disdire è superiore a quello dei posti prenotati");
         }
         else
         {
-            this.bookedSeats -= n;
+            BookedSeats -= n;
         }
     }
 
+    public override string ToString()
+    {
+        string eventInfo = "";
+        string date = Date.ToString("d");
+        eventInfo = date + " - " + Title;
+        return eventInfo;
+    }
+    public void PrintDisponibility()
+    {
+        Console.WriteLine($"\nNumero posti prenotati: {BookedSeats}\n" +
+            $"Numero di posti disponibili: {MaxCapacity - BookedSeats}\n");
+    }
 
 
 

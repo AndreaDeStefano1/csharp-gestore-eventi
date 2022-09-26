@@ -2,16 +2,16 @@
 class ProgramEvent
 {
     string title;
-
+    List<Event> events;
 
     
     public string Title { get =>  title ; set => title = value; }
-    public List<Event> Events { get; }
+    public List<Event> Events { get => events;  }
 
     public ProgramEvent(string title)
     {
         Title = title;
-        Events = new List<Event>();
+        events = new List<Event>();
         
     }
 
@@ -69,4 +69,5 @@ class ProgramEvent
 
         return program;
     }
+ 
 }

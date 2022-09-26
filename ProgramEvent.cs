@@ -2,28 +2,31 @@
 class ProgramEvent
 {
     string title;
-    List<Event> events;
+
+
+    
     public string Title { get =>  title ; set => title = value; }
+    public List<Event> Events { get; }
 
     public ProgramEvent(string title)
     {
         Title = title;
-        events = new List<Event>();
+        Events = new List<Event>();
         
     }
 
 
 
-    public void Add(Event e)
+    public void AddEvent(Event e)
     {
-        events.Add(e);  
+        Events.Add(e);  
     }
 
     public List<Event> ListedEvents(string date)
     {
         List<Event> listedEvents = new List<Event>();
 
-        foreach (Event e in events)
+        foreach (Event e in Events)
         {
             if(e.Date.ToString("d") == date)
             {
@@ -34,7 +37,7 @@ class ProgramEvent
         return listedEvents;
     }
 
-    static void PrintList(List<Event> eList)
+    public static void PrintList(List<Event> eList)
     {
         foreach (Event e in eList)
         {
@@ -44,12 +47,12 @@ class ProgramEvent
 
     public int EventCount()
     {
-        return events.Count;
+        return Events.Count;
     }
 
     public void EmptyList()
     {
-        events.Clear();
+        Events.Clear();
     }
 
     public string PrintProgram()
@@ -58,9 +61,9 @@ class ProgramEvent
         int count = 1;
 
         program = Title + ": \n" ;
-        foreach (Event e in events)
+        foreach (Event e in Events)
         {
-            program += count + " " + e.ToString() + "\n";
+            program += count + " - " + e.ToString() + "\n";
             count++;
         }
 

@@ -126,3 +126,33 @@ while (!exit)
             break;
     }
 }
+
+
+
+
+
+
+// TEST MILESTONE 3
+
+//Console.WriteLine("");
+//ProgramEvent newProgram = new ProgramEvent("Giochi d'autunno");
+
+//newProgram.AddEvent(new Event("Rockstar", new DateTime(2023, 3, 1, 7, 0, 0), 150));
+
+//newProgram.AddEvent(new Event("Barbablù", new DateTime(2023, 3, 11, 7, 0, 0), 150));
+//List<Event> list = newProgram.ListedEvents("01/03/2023");
+//Console.WriteLine("2\n");
+//ProgramEvent.PrintList(list);
+
+//Console.WriteLine("3\n");
+//ProgramEvent.PrintList(newProgram.Events);
+//Console.WriteLine("4\n");
+//Console.WriteLine(newProgram.EventCount());
+//Console.WriteLine("5\n");
+
+//Console.WriteLine(newProgram.PrintProgram());
+
+//newProgram.EmptyList();
+//Console.WriteLine("6");
+
+//Console.WriteLine(newProgram.EventCount());
